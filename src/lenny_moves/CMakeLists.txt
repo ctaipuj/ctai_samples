@@ -18,6 +18,10 @@ find_package(catkin REQUIRED
     moveit_ros_planning_interface
     pluginlib
     geometric_shapes
+    robotiq_s_model_control
+    motoman_driver
+    gripper3f_control
+    motoman_variables
 )
 
 find_package(Boost REQUIRED system filesystem date_time thread)
@@ -25,6 +29,7 @@ find_package(Boost REQUIRED system filesystem date_time thread)
 catkin_package(
   LIBRARIES
     interactivity_utils
+    motoman_variables
   CATKIN_DEPENDS
     moveit_core
     moveit_visual_tools
@@ -32,16 +37,30 @@ catkin_package(
     interactive_markers
   DEPENDS
     EIGEN3
+  INCLUDE_DIRS include
 )
 
 ###########
 ## Build ##
 ###########
-
 include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS})
 include_directories(${catkin_INCLUDE_DIRS})
 link_directories(${catkin_LIBRARY_DIRS})
 
 add_executable(lenny_routine src/lenny_routine.cpp)
 target_link_libraries(lenny_routine ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-install(TARGETS lenny_routine DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+add_executable(lenny_joint_sample src/lenny_joint_move_sample.cpp)
+target_link_libraries(lenny_joint_sample ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(lenny_pose_goal src/lenny_pose_goal.cpp)
+target_link_libraries(lenny_pose_goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(lenny_write_variables src/lenny_write_to_25xxx_variables.cpp)
+target_link_libraries(lenny_write_variables ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(lenny_attach_object src/lenny_attach_object.cpp)
+target_link_libraries(lenny_attach_object ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(lenny_gripper_sample_node src/gripper_node_sample.cpp)
+target_link_libraries(lenny_gripper_sample_node ${catkin_LIBRARIES} ${Boost_LIBRARIES})
