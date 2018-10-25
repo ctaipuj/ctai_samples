@@ -22,6 +22,7 @@ find_package(catkin REQUIRED
     motoman_driver
     gripper3f_control
     motoman_variables
+    robotiq_85_control
 )
 
 find_package(Boost REQUIRED system filesystem date_time thread)
@@ -64,3 +65,6 @@ target_link_libraries(lenny_attach_object ${catkin_LIBRARIES} ${Boost_LIBRARIES}
 
 add_executable(lenny_gripper_sample_node src/gripper_node_sample.cpp)
 target_link_libraries(lenny_gripper_sample_node ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(sample_node src/sample_node.cpp)
+target_link_libraries(sample_node ${catkin_LIBRARIES} ${Boost_LIBRARIES})
